@@ -6,10 +6,7 @@ Choose any one of the methods below that best suit your needs.
 ## Pre-compiled binaries
 
 Executable binaries are available for download on the [GitHub Releases page][releases].
-Download the binary for your platform (macOS, or Linux) and extract the archive.
-The archive contains an executable which you can run to build your books.
-
-To make it easier to run, put the path to the binary into your `PATH`.
+Download the binary for your platform (macOS, or Linux) and add the path to the binary into your `PATH`.
 
 [releases]: https://github.com/dialect-rs/
 
