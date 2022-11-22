@@ -1,26 +1,30 @@
 # Using pre-compiled binaries
-## Open-SSL
-Furthermore, you need Open-SSL as some used Rust libraries depend on it. You can follow the guide 
-shown [here](https://www.howtoforge.com/tutorial/how-to-install-openssl-from-source-on-linux/) to install Open-SSL on 
-linux.  
+The use of the pre-compiled binaries requires the installation of certain libraries on your computer.
 
+## GCC
+As the pre-complied binaries are dynamically linked against the GCC library, it has to be installed on your system. An example for the installation of GCC on a Debian or Ubuntu machine is shown here.
+```bash‚
+sudo apt-get install gcc
+```
+# Compiling the code
+If you want to compile the program from source, you need to install additional programs and libraries.
+## Rust
+Of course you need the Rust programming language itself to compile the code. The installation is explained in 
+detail on the [official site](https://www.rust-lang.org/tools/install).
 ## CMaKe
-To compile certain packages, you also need to install cmake. This example shows the installation on a Ubuntu or Debian machine:
+To compile certain Rust packages, you also need to install cmake.
 ```bash
 sudo apt-get install cmake
 ```
-## GCC and GFORTRAN
-You also need to install the GCC and GFORTRAN compilers. 
-```bash
-sudo apt-get install gcc
+## Gfortran
+In addition, the Gfortran compiler must be installed.
+```bash‚
 sudo apt-get install gfortran
 ```
-
-# Compiling the code
-If you want to compile the program from source, you need to install additional libraries.
-## Rust
-Of course you need the Rust programming language itself to compile the code. This is straightforward to install and explained in 
-detail on the [official site](https://www.rust-lang.org/tools/install).
+## Open-SSL
+You need Open-SSL as some used Rust libraries depend on it. You can follow the guide 
+shown [here](https://www.howtoforge.com/tutorial/how-to-install-openssl-from-source-on-linux/) to install Open-SSL on 
+linux.  
 ## Linear Algebra Libraries
 To be able to compile and run the __DIALECT__ program, it is necessary to download a linear algebra package as a requirement for the ndarray_linalg rust crate. You can choose between Intel MKL, OPENBLAS or Netlib by changing the features of ndarray_linalg in the Cargo.toml file according to the documentation ([github page](https://github.com/rust-ndarray/ndarray-linalg)). In our experience, the intel MKL library yields the best performance. 
 ### OPENBLAS/Netlib
