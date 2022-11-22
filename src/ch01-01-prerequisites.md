@@ -1,17 +1,11 @@
 # Using pre-compiled binaries
 The use of the pre-compiled binaries requires the installation of certain libraries on your computer.
-## Open-SSL
-You need Open-SSL as some used Rust libraries depend on it. You can follow the guide 
-shown [here](https://www.howtoforge.com/tutorial/how-to-install-openssl-from-source-on-linux/) to install Open-SSL on 
-linux.  
 
-## GCC and GFORTRAN
-You also need to install the GCC and GFORTRAN compilers. This example shows the installation on a Ubuntu or Debian machine:
-```bash
+## GCC
+As the pre-complied binaries are dynamically linked against the GCC library, it has to be installed on your system. An example for the installation of GCC on a Debian or Ubuntu machine is shown here.
+```bash‚
 sudo apt-get install gcc
-sudo apt-get install gfortran
 ```
-
 # Compiling the code
 If you want to compile the program from source, you need to install additional programs and libraries.
 ## Rust
@@ -22,6 +16,15 @@ To compile certain Rust packages, you also need to install cmake.
 ```bash
 sudo apt-get install cmake
 ```
+## Gfortran
+In addition, the Gfortran compiler must be installed.
+```bash‚
+sudo apt-get install gfortran
+```
+## Open-SSL
+You need Open-SSL as some used Rust libraries depend on it. You can follow the guide 
+shown [here](https://www.howtoforge.com/tutorial/how-to-install-openssl-from-source-on-linux/) to install Open-SSL on 
+linux.  
 ## Linear Algebra Libraries
 To be able to compile and run the __DIALECT__ program, it is necessary to download a linear algebra package as a requirement for the ndarray_linalg rust crate. You can choose between Intel MKL, OPENBLAS or Netlib by changing the features of ndarray_linalg in the Cargo.toml file according to the documentation ([github page](https://github.com/rust-ndarray/ndarray-linalg)). In our experience, the intel MKL library yields the best performance. 
 ### OPENBLAS/Netlib
