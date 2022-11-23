@@ -48,10 +48,13 @@ long_range_radius = 3.03
 ## [excited] config
 ```toml
 [excited]
+calculate_excited_states = false
 nstates = 10
 davidson_iterations = 100
 davidson_subspace_multiplier = 10
 ```
+### calculate_excited_states
+If you want to calculate the excited states in a standard DFTB or FMO-DFTB caluculation, set this option to true.
 ### nstates
 Number of requested excites states.
 ### davidson_iterations
