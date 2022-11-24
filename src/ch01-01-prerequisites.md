@@ -27,14 +27,6 @@ shown [here](https://www.howtoforge.com/tutorial/how-to-install-openssl-from-sou
 linux.  
 ## Linear Algebra Libraries
 To be able to compile and run the __DIALECT__ program, it is necessary to download a linear algebra package as a requirement for the ndarray_linalg rust crate. You can choose between Intel MKL, OPENBLAS or Netlib by changing the features of ndarray_linalg in the Cargo.toml file according to the documentation ([github page](https://github.com/rust-ndarray/ndarray-linalg)). In our experience, the intel MKL library yields the best performance. 
-### OPENBLAS/Netlib
-You need to install the BLAS and LAPACK libraries with the package manager of your operating systems.
-```bash
-sudo apt-get install libopenblas-dev
-sudo apt-get install libblas-dev
-sudo apt-get install libatlas-base-dev 
-sudo apt-get install liblapack-dev
-```
 ### Intel MKL
 If you want to compile DIALECT from source using the intel MKL as the linear algebra package, you will need to install it according to the following steps.
 
@@ -48,3 +40,11 @@ in the installation directory of the MKL Library.
 ```bash
 source /path/to/MKL/mklvars.sh intel64
 ```  
+### OPENBLAS/Netlib
+You need to install the BLAS and LAPACK libraries with the package manager of your operating systems.
+```bash
+sudo apt-get install libopenblas-dev
+sudo apt-get install libblas-dev
+sudo apt-get install libatlas-base-dev 
+sudo apt-get install liblapack-dev
+```
