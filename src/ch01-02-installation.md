@@ -8,7 +8,7 @@ Choose any one of the methods below that best suit your needs.
 An executable binary for linux x86 operating systems is available for download on the [GitHub Releases page][releases].
 Download the binary for your platform and add the directory of the executable to your `PATH`.
 
-[releases]: https://github.com/dialect-rs/
+[releases]: https://github.com/dialect-rs/DIALECT-rs/releases
 
 ## Build from source using Rust
 Once you have installed Rust, you need to download the source code of the latest release of `DIALECT` from the [GitHub Releases page][releases]. After extracting the source code, change into the new directory
