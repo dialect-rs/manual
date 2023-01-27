@@ -1,0 +1,393 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>dialect manual</title>
+        <meta name="robots" content="noindex" />
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="title-page.html">Welcome</a></li><li class="chapter-item expanded "><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch01-01-prerequisites.html"><strong aria-hidden="true">1.1.</strong> Prerequisites</a></li><li class="chapter-item expanded "><a href="ch01-02-installation.html"><strong aria-hidden="true">1.2.</strong> Installation</a></li></ol></li><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">2.</strong> Running the program</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="ch02-01-configuration.html"><strong aria-hidden="true">2.1.</strong> Configuration</a></li><li class="chapter-item expanded "><a href="ch02-02-starting_a_calcuation.html"><strong aria-hidden="true">2.2.</strong> Starting a calculation</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">dialect manual</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="dialect"><a class="header" href="#dialect">DIALECT</a></h1>
+<p>The <strong>DIALECT</strong>(<strong>DIA</strong>batic <strong>L</strong>ocally <strong>E</strong>xcited and <strong>C</strong>harge-<strong>T</strong>ransfer states) software was designed to calculate the electronically excited states of large molecular systems. It is developed in the group of Prof. Dr. Roland Mitrić at the University of Würzburg.</p>
+<p>This short documentation provides guidelines for the installation and use of the <strong>DIALECT</strong> software.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="getting-started"><a class="header" href="#getting-started">Getting Started</a></h1>
+<p>The installation and the software requirements of the <strong>DIALECT</strong> program are explained in the following part of the documentation.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="using-pre-compiled-binaries"><a class="header" href="#using-pre-compiled-binaries">Using pre-compiled binaries</a></h1>
+<p>The use of the pre-compiled binaries requires the installation of certain libraries on your computer.</p>
+<h2 id="gcc"><a class="header" href="#gcc">GCC</a></h2>
+<p>As the pre-complied binaries are dynamically linked against the GCC library, it has to be installed on your system. An example for the installation of GCC on a Debian or Ubuntu machine is shown here.</p>
+<pre><code class="language-bash‚">sudo apt-get install gcc
+</code></pre>
+<h1 id="compiling-the-code"><a class="header" href="#compiling-the-code">Compiling the code</a></h1>
+<p>If you want to compile the program from source, you need to install additional programs and libraries.</p>
+<h2 id="rust"><a class="header" href="#rust">Rust</a></h2>
+<p>Of course you need the Rust programming language itself to compile the code. The installation is explained in 
+detail on the <a href="https://www.rust-lang.org/tools/install">official site</a>.</p>
+<h2 id="cmake"><a class="header" href="#cmake">CMaKe</a></h2>
+<p>To compile certain Rust packages, you also need to install cmake.</p>
+<pre><code class="language-bash">sudo apt-get install cmake
+</code></pre>
+<h2 id="gfortran"><a class="header" href="#gfortran">Gfortran</a></h2>
+<p>In addition, the Gfortran compiler must be installed.</p>
+<pre><code class="language-bash‚">sudo apt-get install gfortran
+</code></pre>
+<h2 id="open-ssl"><a class="header" href="#open-ssl">Open-SSL</a></h2>
+<p>You need Open-SSL as some used Rust libraries depend on it. You can follow the guide 
+shown <a href="https://www.howtoforge.com/tutorial/how-to-install-openssl-from-source-on-linux/">here</a> to install Open-SSL on 
+linux.</p>
+<h2 id="linear-algebra-libraries"><a class="header" href="#linear-algebra-libraries">Linear Algebra Libraries</a></h2>
+<p>To be able to compile and run the <strong>DIALECT</strong> program, it is necessary to download a linear algebra package as a requirement for the ndarray_linalg rust crate. You can choose between Intel MKL, OPENBLAS or Netlib by changing the features of ndarray_linalg in the Cargo.toml file according to the documentation (<a href="https://github.com/rust-ndarray/ndarray-linalg">github page</a>). In our experience, the intel MKL library yields the best performance. </p>
+<h3 id="intel-mkl"><a class="header" href="#intel-mkl">Intel MKL</a></h3>
+<p>If you want to compile DIALECT from source using the intel MKL as the linear algebra package, you will need to install it according to the following steps.</p>
+<p>You can just download the MKL library from the <a href="https://software.intel.com/content/www/us/en/develop/articles/oneapi-standalone-components.html">Intel webpage</a> and after the installation the environment variable $MKLROOT must be set with the <code>setvars.sh</code> script, which is located in the root
+installation directory of MKL.</p>
+<pre><code class="language-bash">source /path/to/MKL/setvars.sh
+</code></pre>
+<p>In the case of the older versions you have to execute the <code>mklvars.sh</code> script that is located
+in the installation directory of the MKL Library. </p>
+<pre><code class="language-bash">source /path/to/MKL/mklvars.sh intel64
+</code></pre>
+<h3 id="openblasnetlib"><a class="header" href="#openblasnetlib">OPENBLAS/Netlib</a></h3>
+<p>You need to install the BLAS and LAPACK libraries with the package manager of your operating systems.</p>
+<pre><code class="language-bash">sudo apt-get install libopenblas-dev
+sudo apt-get install libblas-dev
+sudo apt-get install libatlas-base-dev 
+sudo apt-get install liblapack-dev
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="installation"><a class="header" href="#installation">Installation</a></h1>
+<p>There are multiple ways to install <strong>DIALECT</strong>.
+Choose any one of the methods below that best suit your needs.</p>
+<h2 id="pre-compiled-binaries"><a class="header" href="#pre-compiled-binaries">Pre-compiled binaries</a></h2>
+<p>An executable binary for linux x86 operating systems is available for download on the <a href="https://github.com/dialect-rs/DIALECT-rs/releases">GitHub Releases page</a>.
+Download the binary for your platform and add the directory of the executable to your <code>PATH</code>.</p>
+<h2 id="build-from-source-using-rust"><a class="header" href="#build-from-source-using-rust">Build from source using Rust</a></h2>
+<p>Once you have installed Rust, you need to download the source code of the latest release of <code>DIALECT</code> from the <a href="https://github.com/dialect-rs/DIALECT-rs/releases">GitHub Releases page</a>. After extracting the source code, change into the new directory</p>
+<pre><code class="language-bash">cd DIALECT-rs
+</code></pre>
+<p>and build the executable with the package manager Cargo</p>
+<pre><code class="language-bash">cargo build --release
+</code></pre>
+<p>The option <code>--release</code> enables all optimization during the build and ensures fast runtimes, but can
+result in very long compile times. If you want to compile often e.g. in the case of debugging, then 
+it makes sense to just execute</p>
+<pre><code class="language-bash">cargo build
+</code></pre>
+<p>To be able to execute the <code>DIALECT</code> programm you should set <code>DIALECT_SRC_DIR</code> to the installation directory and you 
+can add the binary path to your <code>PATH</code> environment variable.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="running-the-program"><a class="header" href="#running-the-program">Running the program</a></h1>
+<p>This part of the documentation provides a guide for the user on how to do a calculation with the <strong>DIALECT</strong> program and how to configure the program settings.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="program-settings"><a class="header" href="#program-settings">Program settings</a></h1>
+<p>To configure the settings for a calculation using the <strong>DIALECT</strong> program, the file <strong>dialect.toml</strong> has to be created. You can either create the file yourself or you can run the program in a directory without the configuration file:</p>
+<pre><code class="language-sh">/your/path/to/DIALECT/dialect file.xyz
+</code></pre>
+<p>The <strong>dialect.toml</strong> will then be created using the standard values of the program. 
+The settings of the file dialect.toml are explained in the following sections.</p>
+<h2 id="general-settings"><a class="header" href="#general-settings">General settings</a></h2>
+<pre><code class="language-toml">jobtype = &quot;sp&quot;
+fmo = false
+verbose = 0
+</code></pre>
+<h3 id="jobtype"><a class="header" href="#jobtype">jobtype</a></h3>
+<p>You can choose between &quot;sp&quot; for a DFTB or FMO-LC-DFTB calculation or &quot;density&quot; for the calculation of a given density in the AO basis on a grid.</p>
+<h3 id="fmo"><a class="header" href="#fmo">fmo</a></h3>
+<p>If you want to do a FMO-DFTB calculation, set fmo=true.</p>
+<h3 id="verbose"><a class="header" href="#verbose">verbose</a></h3>
+<p>Concerns the verbosity of the output. Values from -2 to 2 are possible. Higher values result in a much more detailed output.</p>
+<h2 id="mol-config"><a class="header" href="#mol-config">[mol] config</a></h2>
+<pre><code class="language-toml">[mol]
+charge = 0
+multiplicity = 1
+</code></pre>
+<p>You can change the charge and the multiplicity of the molecule. But at this point in time, the program only supports closed shell configurations!</p>
+<h2 id="scf-config"><a class="header" href="#scf-config">[scf] config</a></h2>
+<p>The convergence settings of the self-consistent charge (SCC) routine are defined here. </p>
+<pre><code class="language-toml">[scf]
+scf_max_cycles = 250
+scf_charge_conv = 0.00001
+scf_energy_conv = 0.00001
+</code></pre>
+<h3 id="scf_max_cycles"><a class="header" href="#scf_max_cycles">scf_max_cycles</a></h3>
+<p>Maximum number of iterations for the SCC routine</p>
+<h3 id="scf_charge_conv"><a class="header" href="#scf_charge_conv">scf_charge_conv</a></h3>
+<p>Convergence criterium of the SCC routine. It concerns the charge difference to the previous iteration.</p>
+<h3 id="scf_energy_conv"><a class="header" href="#scf_energy_conv">scf_energy_conv</a></h3>
+<p>Convergence criterium of the SCC routine. It concerns the energy difference to the previous iteration.</p>
+<h2 id="lc-config"><a class="header" href="#lc-config">[lc] config</a></h2>
+<p>Here, you can turn the long-rang correction on and set the long-range radius. Be aware that a FMO calculation only works with an activated long-range correction.</p>
+<pre><code class="language-toml">[lc]
+long_range_correction = true
+long_range_radius = 3.03
+</code></pre>
+<h2 id="excited-config"><a class="header" href="#excited-config">[excited] config</a></h2>
+<pre><code class="language-toml">[excited]
+calculate_excited_states = false
+nstates = 10
+davidson_iterations = 100
+davidson_subspace_multiplier = 10
+</code></pre>
+<h3 id="calculate_excited_states"><a class="header" href="#calculate_excited_states">calculate_excited_states</a></h3>
+<p>If you want to calculate the excited states in a standard DFTB or FMO-DFTB caluculation, set this option to true.</p>
+<h3 id="nstates"><a class="header" href="#nstates">nstates</a></h3>
+<p>Number of requested excites states.</p>
+<h3 id="davidson_iterations"><a class="header" href="#davidson_iterations">davidson_iterations</a></h3>
+<p>Maximum number of iterations for the Davidson routine.</p>
+<h3 id="davidson_subspace_multiplier"><a class="header" href="#davidson_subspace_multiplier">davidson_subspace_multiplier</a></h3>
+<p>Maximum scaling factor of the dimension for the guess vectors of the Davidson algorithm. It is multiplied with the number of requested excited states.</p>
+<h2 id="tda_dftb-config"><a class="header" href="#tda_dftb-config">[tda_dftb] config</a></h2>
+<pre><code class="language-toml">[tda_dftb]
+restrict_active_orbitals = false
+active_orbital_threshold = 0.2
+save_transition_densities = false
+states_to_analyse = [0, 1]
+</code></pre>
+<p>Settings concerning a normal TDA-TDDFTB calculation</p>
+<h3 id="restrict_active_orbitals"><a class="header" href="#restrict_active_orbitals">restrict_active_orbitals</a></h3>
+<p>Reduce the number of occupied and virtual orbitals involved during the TDDFTB calulation.</p>
+<h3 id="active_orbital_threshold"><a class="header" href="#active_orbital_threshold">active_orbital_threshold</a></h3>
+<p>Set the fraction of the full orbital space</p>
+<h3 id="save_transition_densities"><a class="header" href="#save_transition_densities">save_transition_densities</a></h3>
+<p>Save the transition density matrix in AO basis for the requested excited states.</p>
+<h3 id="states_to_analyse"><a class="header" href="#states_to_analyse">states_to_analyse</a></h3>
+<p>Select the states for which you want to calculate and save the transition density matrices.</p>
+<h2 id="slater_koster-config"><a class="header" href="#slater_koster-config">[slater_koster] config</a></h2>
+<pre><code class="language-toml">[slater_koster]
+use_external_skf = false
+skf_directory = &quot; &quot;
+</code></pre>
+<h3 id="use_external_skf"><a class="header" href="#use_external_skf">use_external_skf</a></h3>
+<p>Use Slater-Koster parameters from external source.</p>
+<h3 id="skf_directory"><a class="header" href="#skf_directory">skf_directory</a></h3>
+<p>Specify the path to the SKF-files. &quot;/path/to/SKF/&quot;</p>
+<h2 id="parallelization-config"><a class="header" href="#parallelization-config">[parallelization] config</a></h2>
+<pre><code class="language-toml">[parallelization]
+number_of_cores = 1
+</code></pre>
+<h3 id="number_of_cores"><a class="header" href="#number_of_cores">number_of_cores</a></h3>
+<p>Use the specified number of processor cores for the calculation. It only affects a FMO-DFTB calculation</p>
+<h2 id="fmo_lc_tddftb-config"><a class="header" href="#fmo_lc_tddftb-config">[fmo_lc_tddftb] config</a></h2>
+<pre><code class="language-toml">[fmo_lc_tddftb]
+restrict_active_space = true
+active_space_threshold_le = 0.0001
+active_space_threshold_ct = 0.0001
+n_le = 2
+n_ct = 1
+calculate_all_states = false
+calculate_ntos = false
+calculate_transition_densities = false
+calculate_particle_hole_densities = false
+states_to_analyse = [0, 1]
+</code></pre>
+<p>Settings for the excited state calculation using the FMO-LC-TDDFTB method</p>
+<h3 id="restrict_active_space"><a class="header" href="#restrict_active_space">restrict_active_space</a></h3>
+<p>Calculate only relevant transitions between orbitals for the exchange part of the couplings between the LE and CT states.</p>
+<h3 id="active_space_treshold_le"><a class="header" href="#active_space_treshold_le">active_space_treshold_le</a></h3>
+<p>Threshold for the one electron transition density matrices of the LE states.</p>
+<h3 id="active_space_treshold_ct"><a class="header" href="#active_space_treshold_ct">active_space_treshold_ct</a></h3>
+<p>Threshold for the one electron transition density matrices of the CT states.</p>
+<h3 id="n_le"><a class="header" href="#n_le">n_le</a></h3>
+<p>Number of locally excited states for each monomer fragment.</p>
+<h3 id="n_ct"><a class="header" href="#n_ct">n_ct</a></h3>
+<p>Number of charge-transfer states for each pair fragment.</p>
+<h3 id="calculate_all_states"><a class="header" href="#calculate_all_states">calculate_all_states</a></h3>
+<p>Do a full diagonalization of the excitonic Hamiltonian instead of the Davidson routine.</p>
+<h3 id="calculate_ntos"><a class="header" href="#calculate_ntos">calculate_ntos</a></h3>
+<p>Calculate the natural transition orbitals for the specified excited states. They will be stored as molden files, which can be viewed in jmol.</p>
+<h3 id="calculate_transition_densities"><a class="header" href="#calculate_transition_densities">calculate_transition_densities</a></h3>
+<p>Calculate the transition density matrices in AO basis for the specified excited states. They will be stored as binary numpy files.</p>
+<h3 id="calculate_particle_hole_densities"><a class="header" href="#calculate_particle_hole_densities">calculate_particle_hole_densities</a></h3>
+<p>Calculate the particle and hole densities for the specified excited states. They will be stored as binary numpy files.</p>
+<h3 id="states_to_analyze"><a class="header" href="#states_to_analyze">states_to_analyze</a></h3>
+<p>List of the excited states for which the ntos or densities will be calculated.</p>
+<h2 id="density-config"><a class="header" href="#density-config">[density] config</a></h2>
+<pre><code class="language-toml">[density]
+path_to_density = &quot; &quot;
+points_per_bohr = 2.0
+threshold = 0.0001
+use_block_implementation = true
+n_blocks = 1
+</code></pre>
+<p>Settings regarding the calculation of a density in AO basis on the grid, which will be stored as a cube file.</p>
+<h3 id="path_to_density"><a class="header" href="#path_to_density">path_to_density</a></h3>
+<p>Specify the full path to the density file: /path/to/density/density.npy</p>
+<h3 id="points_per_bohr"><a class="header" href="#points_per_bohr">points_per_bohr</a></h3>
+<p>Number of grid points per bohr</p>
+<h3 id="threshold"><a class="header" href="#threshold">threshold</a></h3>
+<p>Relative threshold of the matrix elements of the density, which will be used in the calculation of the cube file.</p>
+<h3 id="use_block_implementation"><a class="header" href="#use_block_implementation">use_block_implementation</a></h3>
+<p>Should be used if a large molecular systems is considered. Otherwise, the data of the basis functions, which are going to be evaluated on the complete grid, wont fit into the RAM of your system.</p>
+<h3 id="n_blocks"><a class="header" href="#n_blocks">n_blocks</a></h3>
+<p>The number of blocks the density matrix will be partitioned into. </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="calling-the-program"><a class="header" href="#calling-the-program">Calling the program</a></h1>
+<p>If you have the <strong>DIALECT</strong> executable in your <code>PATH</code>, you can simply start a calculation using</p>
+<pre><code class="language-sh">dialect file.xyz
+</code></pre>
+<p>Otherwise you would have to call the program using the full path to the DIALECT binary</p>
+<pre><code class="language-sh">/your/path/to/DIALECT/dialect file.xyz
+</code></pre>
+<p>Normally the output of the program is printed to the console. To save the output to a file, use:</p>
+<pre><code class="language-sh">dialect file.xyz &amp;&gt; output.dat
+</code></pre>
+<p>If you intend to use the built in DFTB parameterization, you are required to set the <code>DIALECT_SRC_DIR</code> to the folder containing the source files of the program:</p>
+<pre><code class="language-sh">export DIALECT_SRC_DIR=/your/path/to/DIALECT
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+    </body>
+</html>
