@@ -11,3 +11,7 @@ Normally the output of the program is printed to the console. To save the output
 ```sh
 dialect file.xyz &> output.dat
 ```
+If you intend to use the built in DFTB parameterization, you are required to set the `DIALECT_SRC_DIR` to the folder containing the source files of the program:
+```sh
+export DIALECT_SRC_DIR=/your/path/to/DIALECT
+```
