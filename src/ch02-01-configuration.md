@@ -5,149 +5,235 @@ To configure the settings for a calculation using the __DIALECT__ program, the f
 ```
 The __dialect.toml__ will then be created using the standard values of the program. 
 The settings of the file dialect.toml are explained in the following sections.
-## General settings
+
+---
+
+## General Settings
+
 ```toml
-jobtype = "sp"
-fmo = false
-verbose = 0
+jobtype = "sp"   # Type of calculation. Options:
+                 # - "sp" (single-point energy calculation)
+                 # - "opt" (geometry optimization)
+                 # - "grad" (gradient evaluation)
+                 # - "hessian" (Hessian matrix calculation)
+                 # - "dynamics" (molecular dynamics)
+                 # - "monomer_identification" (get the monomer index that corresponds to atomic coordinates)
+                 # - "initial_conditions" (Wigner sampling for dynamics)
+                 # - "polariton" (exciton-polariton simulation)
+                 # - "tdm_ehrenfest" (create the TDMs and/or particle and hole densities along a trajectory of Ehrenfest FMO-LC-TDDFTB)
+
+verbose = 0      # Level of printed output:
+                 # - -1: minimal output (silent mode)
+                 # -  0: normal/default verbosity
+                 # -  1: verbose mode (some debug info)
 ```
-### jobtype
-You can choose between "sp" for a DFTB or FMO-LC-DFTB calculation or "density" for the calculation of a given density in the AO basis on a grid.
-### fmo 
-If you want to do a FMO-DFTB calculation, set fmo=true.
-### verbose
-Concerns the verbosity of the output. Values from -2 to 2 are possible. Higher values result in a much more detailed output.
-## [mol] config
+
+---
+
+## Tight-Binding Method Options
+
+```toml
+[tight_binding]
+use_dftb = true                  # Enable standard DFTB method (density-functional tight-binding)
+use_xtb1 = false                 # Use GFN1-xTB method instead of DFTB (as of now, only ground state properties are supported)
+use_gaussian_gamma = true        # Use Gaussian functions to model the gamma matrix (Coulomb interaction); set to false for Slater functions (as most DFTB parametrisations employ Slater functions, we recommend to set this option to false for esternal Slater-Koster parameters)
+use_shell_resolved_gamma = false # Allow different Hubbard parameters for different orbital types (s, p, d) instead of one uniform value per atom
+```
+
+---
+
+## Fragment Molecular Orbital (FMO) Settings
+
+```toml
+[fmo]
+use_fmo = false           # Enable FMO method for fragment-based calculations
+vdw_scaling = 2.0         # Controls fragmentation behavior:
+                          # - Higher values lead to looser fragment pairing
+                          # - Controls the number of monomer pairs and ES-DIM pairs
+```
+
+---
+
+## Molecular System Information
+
 ```toml
 [mol]
-charge = 0
-multiplicity = 1
+charge = 0                # Total charge of the system
+multiplicity = 1          # Spin multiplicity. Currently, only singlet (1) is supported
 ```
-You can change the charge and the multiplicity of the molecule. But at this point in time, the program only supports closed shell configurations!
-## [scf] config
-The convergence settings of the self-consistent charge (SCC) routine are defined here. 
+
+---
+
+## SCF Convergence Criteria
+
 ```toml
 [scf]
-scf_max_cycles = 250
-scf_charge_conv = 0.00001
-scf_energy_conv = 0.00001
+scf_max_cycles = 250           # Max number of iterations in the self-consistent charge (SCC) loop
+scf_charge_conv = 0.00001      # Convergence threshold for charge density between SCC steps
+scf_energy_conv = 0.00001      # Convergence threshold for energy between SCC steps
 ```
-### scf_max_cycles
-Maximum number of iterations for the SCC routine
-### scf_charge_conv 
-Convergence criterium of the SCC routine. It concerns the charge difference to the previous iteration.
-### scf_energy_conv
-Convergence criterium of the SCC routine. It concerns the energy difference to the previous iteration.
-## [lc] config
-Here, you can turn the long-rang correction on and set the long-range radius. Be aware that a FMO calculation only works with an activated long-range correction.
+
+---
+
+## Long-Range Corrections
+
 ```toml
 [lc]
-long_range_correction = true
-long_range_radius = 3.03
+long_range_correction = true   # Apply long-range correction (important for accurate CT excitation energies)
+long_range_radius = 3.03       # Radius for applying long-range corrections (in au)
 ```
-## [excited] config
+
+---
+
+## DFTB3 Parameters
+
+```toml
+[dftb3]
+use_dftb3 = false               # Enable DFTB3 (third-order corrections)
+use_gamma_damping = false       # Use damping for gamma matrix
+hubbard_derivatives = [1.0, 1.0] # Values of the derivatives of the Hubbard U w.r.t. charge for each element (ordered by Z)
+```
+
+---
+
+## Geometry Optimization Options
+
+```toml
+[opt]
+state_to_optimize = 0                  # Electronic state to be optimized (0 = ground state)
+geom_opt_max_cycles = 500             # Max number of optimization steps
+geom_opt_tol_displacement = 300.0     # Tolerance for geometry displacement, 300 * 10^-6 as default
+geom_opt_tol_gradient = 1200.0        # Tolerance for gradient norm (controls convergence), 1200 * 10^-6 as default
+geom_opt_tol_energy = 1.0             # Energy change threshold for convergence, 1.0 * 10^-6 as default
+use_bfgs = true                       # Use LBFGS optimizer
+use_line_search = true               # Enable line search for better step size in optimization
+```
+
+---
+
+## Excited State Calculations
+
 ```toml
 [excited]
-calculate_excited_states = false
-nstates = 10
-davidson_iterations = 100
-davidson_subspace_multiplier = 10
+calculate_excited_states = false       # Enable excited state calculation
+nstates = 10                           # Number of excited states to calculate
+davidson_iterations = 100              # Max iterations in the Davidson solver
+davidson_subspace_multiplier = 10      # Controls the max subspace size: subspace = nstates * multiplier
+davidson_convergence = 0.00001         # Convergence threshold for the residuals in Davidson method
+use_casida = false                     # Use full Casida equations; default is TDA
+get_all_states = false                 # Calculate all excited states (not just lowest nstates)
 ```
-### calculate_excited_states
-If you want to calculate the excited states in a standard DFTB or FMO-DFTB caluculation, set this option to true.
-### nstates
-Number of requested excites states.
-### davidson_iterations
-Maximum number of iterations for the Davidson routine.
-### davidson_subspace_multiplier
-Maximum scaling factor of the dimension for the guess vectors of the Davidson algorithm. It is multiplied with the number of requested excited states.
-## [tda_dftb] config
+
+---
+
+## TD-DFTB Excited States
+
 ```toml
-[tda_dftb]
-restrict_active_orbitals = false
-active_orbital_threshold = 0.2
-save_transition_densities = false
-states_to_analyse = [0, 1]
+[tddftb]
+restrict_active_orbitals = false         # Enable orbital restriction (limits calculation to key orbitals)
+active_orbital_threshold = 0.2           # Fraction of orbitals included (0.2 = 20% of occupied and virtual orbitals)
+save_transition_densities = false        # Save transition density matrices
+save_natural_transition_orbitals = false # Save NTOs as .cube files (for visualization)
+states_to_analyse = [0, 1]               # Specify which excited states to analyze (e.g., save NTOs)
 ```
-Settings concerning a normal TDA-TDDFTB calculation
-### restrict_active_orbitals
-Reduce the number of occupied and virtual orbitals involved during the TDDFTB calulation.
-### active_orbital_threshold
-Set the fraction of the full orbital space
-### save_transition_densities
-Save the transition density matrix in AO basis for the requested excited states.
-### states_to_analyse
-Select the states for which you want to calculate and save the transition density matrices.
-## [slater_koster] config
+
+---
+
+## Slater-Koster Parameters
+
 ```toml
 [slater_koster]
-use_external_skf = false
-skf_directory = " "
+use_external_skf = false          # Use external Slater-Koster files (recommended)
+skf_directory = " "               # Path to the directory containing .skf files
 ```
-### use_external_skf
-Use Slater-Koster parameters from external source.
-### skf_directory
-Specify the path to the SKF-files. "/path/to/SKF/"
-## [parallelization] config
+
+---
+
+## Parallelization
+
 ```toml
 [parallelization]
-number_of_cores = 1
+number_of_cores = 1               # Number of CPU cores to use (parallel execution)
 ```
-### number_of_cores
-Use the specified number of processor cores for the calculation. It only affects a FMO-DFTB calculation
-## [fmo_lc_tddftb] config
+
+---
+
+## FMO-LC-TDDFTB Settings
+
 ```toml
 [fmo_lc_tddftb]
-restrict_active_space = true
-active_space_threshold_le = 0.0001
-active_space_threshold_ct = 0.0001
-n_le = 2
-n_ct = 1
-calculate_all_states = false
-calculate_ntos = false
-calculate_transition_densities = false
-calculate_particle_hole_densities = false
-states_to_analyse = [0, 1]
+restrict_active_space = true               # Restrict exchange integral calculation to significant transitions only; only TDM matrix elements that are above a threshold will be considered for the exchange evaluation
+active_space_threshold_le = 0.0001         # Threshold for including locally excited transitions
+active_space_threshold_ct = 0.0001         # Threshold for charge-transfer transitions
+n_le = 2                                   # Number of local excited states to consider
+n_ct = 1                                   # Number of CT states to include
+calculate_all_states = false               # Whether to compute full excitonic Hamiltonian
+calculate_ntos = false                     # Enable NTO calculations
+calculate_transition_densities = false     # Save transition density matrices
+calculate_particle_hole_densities = false  # Save particle/hole density maps
+states_to_analyse = [0, 1]                 # Specify which states to analyze
+calc_exact_s_sqrt_inv = false              # Compute exact inverse square root of overlap matrix (costly but accurate)
 ```
-Settings for the excited state calculation using the FMO-LC-TDDFTB method
-### restrict_active_space
-Calculate only relevant transitions between orbitals for the exchange part of the couplings between the LE and CT states.
-### active_space_treshold_le 
-Threshold for the one electron transition density matrices of the LE states.
-### active_space_treshold_ct
-Threshold for the one electron transition density matrices of the CT states.
-### n_le
-Number of locally excited states for each monomer fragment.
-### n_ct
-Number of charge-transfer states for each pair fragment.
-### calculate_all_states
-Do a full diagonalization of the excitonic Hamiltonian instead of the Davidson routine.
-### calculate_ntos
-Calculate the natural transition orbitals for the specified excited states. They will be stored as molden files, which can be viewed in jmol.
-### calculate_transition_densities
-Calculate the transition density matrices in AO basis for the specified excited states. They will be stored as binary numpy files.
-### calculate_particle_hole_densities
-Calculate the particle and hole densities for the specified excited states. They will be stored as binary numpy files.
-### states_to_analyze
-List of the excited states for which the ntos or densities will be calculated.
-## [density] config
-```toml
-[density]
-path_to_density = " "
-points_per_bohr = 2.0
-threshold = 0.0001
-use_block_implementation = true
-n_blocks = 1
-```
-Settings regarding the calculation of a density in AO basis on the grid, which will be stored as a cube file.
-### path_to_density
-Specify the full path to the density file: /path/to/density/density.npy
-### points_per_bohr
-Number of grid points per bohr
-### threshold
-Relative threshold of the matrix elements of the density, which will be used in the calculation of the cube file.
-### use_block_implementation
-Should be used if a large molecular systems is considered. Otherwise, the data of the basis functions, which are going to be evaluated on the complete grid, wont fit into the RAM of your system.
-### n_blocks
-The number of blocks the density matrix will be partitioned into. 
 
+---
+
+## Dispersion Corrections (DFT-D3)
+
+```toml
+[dispersion]
+use_dispersion = false       # Enable Grimme's DFT-D3 dispersion correction; you need to look up the dispersion parameters to the corresponding Slater-Koster files
+s6 = 1.0                     # Global scaling factor for dispersion energy
+s8 = 0.01                    # Scaling for higher-order dispersion terms
+a1 = 0.497                   # Damping function parameter
+a2 = 3.622                   # Damping function parameter
+```
+
+---
+
+## Monomer Identification
+
+```toml
+[identification_config]
+atom_coordinates = [[0.0, 0.0, 0.0]]  # Coordinates of a single atom of the monomer for identification in the structure
+```
+
+---
+
+## Initial Condition Sampling (Wigner)
+
+```toml
+[wigner_config]
+n_samples = 50                     # Number of samples to generate (position + velocity)
+temperature = 50.0                 # Temperature for sampling (Wigner distribution)
+n_cut = 6                          # Number of modes (typically rotational/translation) to exclude from Hessian
+save_in_other_path = false         # Save files outside the working directory
+wigner_path = " "                  # If saving elsewhere, specify full directory path
+write_velocities = true            # Save velocity vectors in output (NumPy format)
+```
+
+---
+
+## Create cube files along Ehrenfest trajectory
+
+```toml
+[tdm_config]
+calculate_nth_step = 10            # Create a cube file for every nth step
+total_steps = 1000                 # Set the total number of steps along the trajectory
+store_tdm = false                  # Save the TDM as a Numpy file
+store_hole_particle = false        # Save the hole and particle density as a cube file
+calc_cube = true                   # Compute the cube file of the particle and hole densities
+calc_tdm_cube = false              # Compute the cube file of the transition density matrix
+use_parallelization = true         # use multithreading for the calculation (high demand of RAM)
+```
+
+---
+
+## Strong light-matter interactions
+
+```toml
+[polariton]                        # If the jobtype "polariton" is chosen, these options must be considered
+e = [[1.0, 1.0, 1.0]]              # activate/deactivate the electric field components of the photon 
+p = [[0.0, 0.0, 0.0]]              # electric field polarization of the photon; for x-polarisation, choose [[1.0,0.0,0.0]]
+photon_energy = [0.0]              # photon energy
+quantized_volume = [1.0]           # quantized volume for the calculation of the light-matter coupling constant g
+```

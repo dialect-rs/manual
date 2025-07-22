@@ -6,7 +6,7 @@ Choose any one of the methods below that best suit your needs.
 ## Pre-compiled binaries
 
 An executable binary for linux x86 operating systems is available for download on the [GitHub Releases page][releases].
-Download the binary for your platform and add the directory of the executable to your `PATH`.
+Download the binary and add the directory of the executable to your `PATH`. For some calculations (like the computation of cube files), the environment variable `DIALECT_SRC_DIR` must be set to the path to the DIALECT source code. Thus, the DIALECT code from github is also neccessary.
 
 [releases]: https://github.com/dialect-rs/DIALECT-rs/releases
 
